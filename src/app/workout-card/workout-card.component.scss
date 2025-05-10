@@ -151,6 +151,10 @@ body {
       align-items: center;
       gap: 8px;
       white-space: nowrap;
+
+      &:hover {
+        cursor: pointer;
+      }
     }
   }
 
