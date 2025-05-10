@@ -123,8 +123,13 @@ table {
 .edit-mode {
   height: 400px;
   width: 50vw;
-  margin: 20px auto;
   overflow: auto;
+  border: 1px solid #c0c0c0;
+  border-top: hidden;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
 
   .edit-header {
     display: flex;

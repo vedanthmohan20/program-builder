@@ -9,6 +9,11 @@ import { WorkoutCardComponent } from './workout-card/workout-card.component';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { FormsModule } from '@angular/forms';
+import {
+  CdkDragDrop,
+  DragDropModule,
+  moveItemInArray,
+} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-root',
@@ -19,14 +24,18 @@ import { FormsModule } from '@angular/forms';
     MatButtonModule,
     VolumeSummaryComponent,
     WorkoutCardComponent,
-    FormsModule
+    FormsModule,
+    DragDropModule,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
   isEditMode: boolean = false;
-  muscleGroupToVolume: Map<MuscleGroup, number> = new Map<MuscleGroup, number>();
+  muscleGroupToVolume: Map<MuscleGroup, number> = new Map<
+    MuscleGroup,
+    number
+  >();
   workouts: Workout[] = [];
   programNotes: string = '';
 
@@ -62,6 +71,10 @@ export class AppComponent {
     }
   }
 
+  drop(event: CdkDragDrop<any[]>) {
+    moveItemInArray(this.workouts, event.previousIndex, event.currentIndex);
+  }
+
   private recalculateTotalVolume() {
     Object.values(MuscleGroup).forEach((muscleGroup) => {
       this.muscleGroupToVolume.set(muscleGroup, 0);
@@ -70,7 +83,8 @@ export class AppComponent {
     this.workouts.forEach((workout) => {
       if (!workout.isRestDay && workout.exercises) {
         workout.exercises.forEach((exercise) => {
-          const currentVolume = this.muscleGroupToVolume.get(exercise.muscleGroup) || 0;
+          const currentVolume =
+            this.muscleGroupToVolume.get(exercise.muscleGroup) || 0;
           this.muscleGroupToVolume.set(
             exercise.muscleGroup,
             currentVolume + exercise.sets
@@ -120,11 +134,13 @@ export class AppComponent {
   private exportToPdfFile(): void {
     const element = document.getElementById('pdf-content');
     if (!element) {
-      console.error('Cannot find element with id \'pdf-content\' to export to PDF');
+      console.error(
+        "Cannot find element with id 'pdf-content' to export to PDF"
+      );
       return;
     }
 
-    html2canvas(element).then(canvas => {
+    html2canvas(element).then((canvas) => {
       const imgData = canvas.toDataURL('image/png');
       const pdf = new jsPDF('l', 'mm', 'a4');
 

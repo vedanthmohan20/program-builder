@@ -52,13 +52,22 @@
       </div>
     </div>
 
-    <!-- Editing Mode (Single Column) -->
+    <!-- Workout cards in Editing mode -->
     <div *ngIf="isEditMode" class="editing-mode">
-      <div class="card-column">
-        <app-workout-card *ngFor="let workout of workouts" [isEditMode]="isEditMode"
-          [workout]="workout">
-        </app-workout-card>
+      <!-- Workout cards column -->
+      <div class="card-column" cdkDropList (cdkDropListDropped)="drop($event)">
+        <div class="workout-card-container" *ngFor="let workout of workouts" cdkDrag>
+          <div cdkDragHandle class="drag-handle">
+            <mat-icon>drag_handle</mat-icon>
+          </div>
+          <app-workout-card 
+            [isEditMode]="isEditMode" 
+            [workout]="workout"
+          ></app-workout-card>
+        </div>
       </div>
+
+      <!-- Notes section -->
       <div class="notes-section">
         <textarea [(ngModel)]="programNotes" placeholder="You can add notes here"></textarea>
       </div>

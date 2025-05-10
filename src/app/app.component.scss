@@ -117,20 +117,69 @@
 
 .editing-mode {
   display: grid;
-  grid-template-columns: 1fr 1fr; /* two equal columns */
-  gap: 1rem; /* optional: adds space between columns */
+  grid-template-columns: auto auto;
+  gap: 1rem;
   justify-content: center;
+  width: 100%;
 }
 
 .card-column {
+  overflow-y: auto; /* enable scrolling */
 
+  &::-webkit-scrollbar {
+    width: 0px; /* Adjust scrollbar thickness here */
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 3px;
+    margin: 8px 0;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #dddddd;
+    border-radius: 3px;
+
+    &:hover {
+      background: #cccccc;
+    }
+  }
+}
+
+/* Drag handle styling */
+.drag-handle {
+  cursor: grab;
+  text-align: center;
+  margin-top: 20px;
+  padding-top: 10px;
+  border: 1px solid #c0c0c0;
+  border-bottom: hidden;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  
+  &:active {
+    cursor: grabbing;
+  }
+  
+  mat-icon {
+    color: #666;
+    transition: opacity 0.2s;
+  }
+}
+
+.cdk-drag-preview {
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+}
+
+.cdk-drag-placeholder {
+  opacity: 0.3;
 }
 
 .notes-section {
   margin-top: 20px;
 
   textarea {
-    width: 90%;
     height: 99%;
     font-size: 20px;
   }
