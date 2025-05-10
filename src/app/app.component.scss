@@ -1,0 +1,138 @@
+.app-root {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.app-header {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: #3f51b5; /* Primary color */
+  color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+
+  .mode-toggle {
+    position: relative;
+    display: inline-flex;
+    background: #f5f5f5;
+    border-radius: 30px;
+    padding: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .toggle-option {
+    position: relative;
+    z-index: 1;
+    border: none;
+    background: transparent;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #666;
+    cursor: pointer;
+    transition: color 0.3s ease;
+
+    &.active {
+      color: #3f51b5;
+    }
+  }
+
+  .slider {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: calc(50% - 4px);
+    height: calc(100% - 8px);
+    background: white;
+    border-radius: 26px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-out;
+
+    &.edit-mode {
+      transform: translateX(100%);
+    }
+  }
+
+  h1 {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+
+  .header-buttons {
+    display: flex;
+    gap: 1rem;
+  }
+}
+
+.main-content {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+}
+
+.volume-summary {
+  flex: 0 0 20%;
+  padding: 1rem;
+  overflow: auto;
+}
+
+.workout-cards {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Space between rows */
+  padding: 10px;
+}
+
+.card-row {
+  display: flex;
+  justify-content: center;
+  gap: 15px; /* Space between cards */
+  width: 100%;
+  min-height: 0; /* Critical for Firefox */
+}
+
+/* Card sizing with proper constraints */
+.top-row app-workout-card {
+  flex: 1;
+  min-width: calc(25% - 12px); /* 4 cards accounting for gap */
+  max-width: calc(25% - 12px);
+}
+
+.bottom-row app-workout-card {
+  flex: 1;
+  min-width: calc(33.33% - 10px); /* 3 cards accounting for gap */
+  max-width: calc(33.33% - 10px);
+}
+
+.editing-mode {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* two equal columns */
+  gap: 1rem; /* optional: adds space between columns */
+  // align-items: center;
+  justify-content: center;
+}
+
+.card-column {
+
+}
+
+.notes-section {
+  margin-top: 20px;
+
+  textarea {
+    width: 90%;
+    height: 99%;
+    font-size: 20px;
+  }
+}

@@ -1,0 +1,244 @@
+.workout-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 16px;
+  background: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  height: 100%;
+  box-sizing: border-box; /* Include padding in height calc */
+  display: flex;
+  flex-direction: column;
+  min-height: 200px;
+  font-family: "Segoe UI", Roboto, sans-serif;
+
+  &.rest-day {
+    background: #f5f5f5;
+    justify-content: center;
+    align-items: center;
+
+    h1 {
+      color: #666;
+    }
+  }
+}
+
+.workout-card-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  h4 {
+    margin: 0 0 12px 0;
+    color: #3f51b5;
+  }
+}
+
+h1 {
+  margin: 0 0 12px 0;
+  font-size: 1.3rem;
+  color: #3f51b5;
+}
+
+.workout-content {
+  overflow-y: auto;
+  overflow-x: auto;
+  height: 100%;
+  max-height: 100%;
+
+  &::-webkit-scrollbar {
+    width: 0px; /* Adjust scrollbar thickness here */
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 3px;
+    margin: 8px 0;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #dddddd;
+    border-radius: 3px;
+
+    &:hover {
+      background: #cccccc;
+    }
+  }
+}
+
+.muscle-groups {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+
+  .muscle-tag {
+    background: #e3f2fd;
+    color: #1976d2;
+    padding: 4px 8px;
+    border-radius: 16px;
+    font-size: 0.8rem;
+  }
+}
+
+table {
+  width: calc(100% - 5px);
+  border-collapse: collapse;
+  flex-grow: 1; /* Takes remaining space */
+
+  th,
+  td {
+    padding: 8px 12px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+    vertical-align: top; /* Align content to top */
+  }
+
+  th {
+    background-color: #f8f9fa;
+    font-weight: 500;
+  }
+
+  .exercise-row {
+    height: auto; /* Allow height to grow */
+  }
+
+  .exercise-name {
+    word-break: break-word; /* Handle long exercise names */
+    min-width: 150px;
+  }
+
+  .sets,
+  .reps {
+    white-space: nowrap; /* Keep sets/reps on one line */
+  }
+
+  .empty-message {
+    color: #999;
+    text-align: center;
+    padding: 16px;
+  }
+}
+
+/* Edit Mode Styles */
+
+body {
+  display: flex;
+  justify-content: center;
+}
+
+.edit-mode {
+  height: 400px;
+  width: 50vw;
+  margin: 20px auto;
+  overflow: auto;
+
+  .edit-header {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+    align-items: center;
+
+    input[type="text"] {
+      flex: 1;
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 1.1rem;
+    }
+
+    .rest-day-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+    }
+  }
+
+  .edit-content {
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    gap: 16px;
+  }
+
+  .exercises-table {
+    overflow-x: auto;
+
+    table {
+      width: 100%;
+      min-width: 600px;
+
+      th, td {
+        padding: 8px;
+      }
+
+      input {
+        width: 100%;
+        padding: 6px 8px;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        box-sizing: border-box;
+
+        &[type="number"] {
+          width: 60px;
+        }
+      }
+
+      .rep-range {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+
+        input {
+          width: 50px;
+        }
+      }
+
+      .remove-btn {
+        background: none;
+        border: none;
+        color: #f44336;
+        font-size: 1.2rem;
+        cursor: pointer;
+        padding: 0 8px;
+      }
+    }
+  }
+
+  .add-exercise {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+
+    input {
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      min-width: 120px;
+
+      &[type="number"] {
+        width: 60px;
+      }
+    }
+
+    .rep-range {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+
+      input {
+        width: 50px;
+      }
+    }
+
+    button {
+      padding: 8px 16px;
+      background-color: #3f51b5;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  }
+}

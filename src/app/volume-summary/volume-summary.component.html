@@ -1,0 +1,7 @@
+<div class="volume-summary-card">
+    <h2 class="volume-summary-title">Volume Summary</h2>
+    <div *ngFor="let entry of entries" class="volume-summary-row">
+        <span class="volume-summary-key">{{ entry[0] }}</span>
+        <span class="volume-summary-value">{{ entry[1] }}</span>
+    </div>
+</div>

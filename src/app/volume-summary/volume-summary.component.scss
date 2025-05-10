@@ -1,0 +1,33 @@
+.volume-summary-card {
+    max-width: 400px;
+    margin: auto;
+    padding: 16px;
+    border-radius: 12px;
+    font-family: "Segoe UI", Roboto, sans-serif;
+}
+
+.volume-summary-title {
+    margin-top: 0px;
+    text-align: center;
+}
+
+.volume-summary-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.volume-summary-row:last-child {
+    border-bottom: none;
+}
+
+.volume-summary-key {
+    font-weight: 500;
+    color: #333;
+}
+
+.volume-summary-value {
+    font-weight: 500;
+    color: #333;
+}

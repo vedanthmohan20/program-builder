@@ -1,0 +1,114 @@
+<!-- display this if the page is in Reading mode -->
+<div *ngIf="!isEditMode" class="workout-card" [class.rest-day]="workout.isRestDay">
+    <!-- Rest Day -->
+    <div *ngIf="workout.isRestDay" class="rest-day-content">
+        <h1>Rest Day</h1>
+    </div>
+
+    <!-- Workout Day -->
+    <div *ngIf="!workout.isRestDay" class="workout-content">
+        <div class="workout-card-header">
+            <h1>{{ workout.name }}</h1>
+            <h4>Sets: {{ workout.totalSets }}</h4>
+        </div>
+
+        <div class="muscle-groups">
+            <span *ngFor="let group of workoutMuscleGroups" class="muscle-tag">
+                {{ group }}
+            </span>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Exercise</th>
+                    <th>Sets</th>
+                    <th>Reps</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let exercise of workout.exercises" class="exercise-row">
+                    <td class="exercise-name">{{ exercise.name }}</td>
+                    <td class="sets">{{ exercise.sets }}</td>
+                    <td class="reps">{{ exercise.repRange.min }}-{{ exercise.repRange.max }}</td>
+                </tr>
+                <tr *ngIf="workout.exercises === undefined">
+                    <td colspan="3" class="empty-message">No exercises added</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- display this if the page is in Editing mode -->
+<div *ngIf="isEditMode" class="workout-card edit-mode">
+    <div class="edit-header">
+        <input type="text" [(ngModel)]="workout.name" placeholder="Workout name">
+        <label class="rest-day-toggle">
+            <input type="checkbox" [(ngModel)]="workout.isRestDay">
+            <span>Rest Day</span>
+        </label>
+    </div>
+
+    <div *ngIf="!workout.isRestDay" class="edit-content">
+        <div class="exercises-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Exercise</th>
+                        <th>Muscle Group</th>
+                        <th>Sets</th>
+                        <th>Rep Range</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let exercise of workout.exercises; let i = index">
+                        <td>
+                            <input type="text" [(ngModel)]="exercise.name">
+                        </td>
+
+                        <td>
+                            <select [(ngModel)]="exercise.muscleGroup">
+                                <option *ngFor="let group of muscleGroups" [value]="group">
+                                    {{ group }}
+                                </option>
+                            </select>
+                        </td>
+
+
+                        <td>
+                            <input type="number" [(ngModel)]="exercise.sets" min="1">
+                        </td>
+                        <td class="rep-range">
+                            <input type="number" [(ngModel)]="exercise.repRange.min" min="1">
+                            <span>-</span>
+                            <input type="number" [(ngModel)]="exercise.repRange.max" min="1">
+                        </td>
+                        <td>
+                            <button class="remove-btn" (click)="removeExercise(i)">×</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="add-exercise">
+            <input type="text" [(ngModel)]="newExercise.name" placeholder="Exercise name">
+
+            <select [(ngModel)]="newExercise.muscleGroup">
+                <option *ngFor="let group of muscleGroups" [value]="group">
+                    {{ group }}
+                </option>
+            </select>
+
+            <input type="number" [(ngModel)]="newExercise.sets" min="1" placeholder="Sets">
+            <div class="rep-range">
+                <input type="number" [(ngModel)]="newExercise.repRange!.min" min="1" placeholder="Min">
+                <span>-</span>
+                <input type="number" [(ngModel)]="newExercise.repRange!.max" min="1" placeholder="Max">
+            </div>
+            <button (click)="addExercise()">Add</button>
+        </div>
+    </div>
+</div>
