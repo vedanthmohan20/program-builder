@@ -1,14 +1,23 @@
 import { Component, Input } from '@angular/core';
 import { Workout } from '../models/workout.model';
-import { CommonModule } from '@angular/common';
-import { FormsModule, UntypedFormBuilder } from '@angular/forms';
+import { CommonModule, NgFor } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { Exercise } from '../models/exercise.model';
 import { MuscleGroup } from '../models/muscle-group.enum';
+import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-workout-card',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [
+    CommonModule, 
+    FormsModule,
+    MatIconModule,
+    CdkDrag,
+    CdkDropList,
+    NgFor
+  ],
   templateUrl: './workout-card.component.html',
   styleUrl: './workout-card.component.scss',
 })
@@ -38,6 +47,17 @@ export class WorkoutCardComponent {
       });
       this.updateWorkout();
       this.resetNewExercise();
+    }
+  }
+
+  onExerciseDropped(event: CdkDragDrop<Exercise[]>) {
+    // Only allow reordering within the same container
+    if (event.previousContainer === event.container) {
+      moveItemInArray(
+        this.workout.exercises!,
+        event.previousIndex,
+        event.currentIndex
+      );
     }
   }
 

@@ -51,10 +51,11 @@
     </div>
 
     <div *ngIf="!workout.isRestDay" class="edit-content">
-        <div class="exercises-table">
+        <div class="exercises-table" cdkDropList (cdkDropListDropped)="onExerciseDropped($event)">
             <table>
                 <thead>
                     <tr>
+                        <th></th>
                         <th>Exercise</th>
                         <th>Muscle Group</th>
                         <th>Sets</th>
@@ -63,11 +64,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let exercise of workout.exercises; let i = index">
+                    <tr *ngFor="let exercise of workout.exercises; let i = index" cdkDrag [cdkDragData]="exercise">
+                        <td class="drag-handle" cdkDragHandle>
+                            <mat-icon>drag_handle</mat-icon>
+                        </td>
                         <td>
                             <input type="text" [(ngModel)]="exercise.name">
                         </td>
-
                         <td>
                             <select [(ngModel)]="exercise.muscleGroup">
                                 <option *ngFor="let group of muscleGroups" [value]="group">
@@ -75,8 +78,6 @@
                                 </option>
                             </select>
                         </td>
-
-
                         <td>
                             <input type="number" [(ngModel)]="exercise.sets" min="1">
                         </td>

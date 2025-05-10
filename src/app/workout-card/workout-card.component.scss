@@ -241,4 +241,42 @@ body {
       cursor: pointer;
     }
   }
+
+    /* Drag handle styling */
+  .drag-handle {
+    cursor: grab;
+    width: 24px;
+    text-align: center;
+    
+    &:active {
+      cursor: grabbing;
+    }
+    
+    mat-icon {
+      color: #666;
+      opacity: 0.5;
+      transition: opacity 0.2s;
+    }
+  }
+
+  /* Hover effect */
+  tr:hover {
+    .drag-handle mat-icon {
+      opacity: 1;
+    }
+  }
+
+  /* Drag preview styling */
+  .cdk-drag-preview {
+    background: white;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    td {
+      padding: 8px 12px;
+    }
+  }
+
+  /* Animation when sorting */
+  .cdk-drop-list-dragging .exercise-row:not(.cdk-drag-placeholder) {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  }
 }
