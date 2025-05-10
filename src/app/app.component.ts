@@ -6,6 +6,9 @@ import { VolumeSummaryComponent } from './volume-summary/volume-summary.componen
 import { MuscleGroup } from './models/muscle-group.enum';
 import { Workout } from './models/workout.model';
 import { WorkoutCardComponent } from './workout-card/workout-card.component';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -16,6 +19,7 @@ import { WorkoutCardComponent } from './workout-card/workout-card.component';
     MatButtonModule,
     VolumeSummaryComponent,
     WorkoutCardComponent,
+    FormsModule
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -24,6 +28,7 @@ export class AppComponent {
   isEditMode: boolean = false;
   muscleGroupToVolume: Map<MuscleGroup, number> = new Map<MuscleGroup, number>();
   workouts: Workout[] = [];
+  programNotes: string = '';
 
   constructor() {
     // initialise the muscleMap with all muscle groups set to 0
@@ -95,6 +100,11 @@ export class AppComponent {
   }
 
   exportWorkouts(): void {
+    this.exportToJsonFile();
+    this.exportToPdfFile();
+  }
+
+  private exportToJsonFile(): void {
     const jsonStr = JSON.stringify(this.workouts, null, 2);
     const blob = new Blob([jsonStr], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
@@ -105,5 +115,32 @@ export class AppComponent {
     a.click();
 
     URL.revokeObjectURL(url);
+  }
+
+  private exportToPdfFile(): void {
+    const element = document.getElementById('pdf-content');
+    if (!element) {
+      console.error('Cannot find element with id \'pdf-content\' to export to PDF');
+      return;
+    }
+
+    html2canvas(element).then(canvas => {
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('l', 'mm', 'a4');
+
+      // scale image to 95% of PDF width
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = pdf.internal.pageSize.getHeight();
+      const imgProps = pdf.getImageProperties(imgData);
+      const imgWidth = pdfWidth * 0.95;
+      const imgHeight = (imgProps.height * imgWidth) / imgProps.width;
+
+      // Calculate centered X and Y positions
+      const x = (pdfWidth - imgWidth) / 2;
+      const y = (pdfHeight - imgHeight) / 2;
+
+      pdf.addImage(imgData, 'PNG', x, y, imgWidth, imgHeight);
+      pdf.save('workout-program.pdf');
+    });
   }
 }

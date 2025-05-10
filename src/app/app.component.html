@@ -16,11 +16,14 @@
 
     <!-- Import/Export Workout Buttons -->
     <div class="header-buttons">
+      <!-- Import Program Button -->
       <button mat-raised-button color="primary" (click)="fileInput.click()">
         <mat-icon>upload</mat-icon>
         Import
       </button>
       <input type="file" accept=".json" #fileInput style="display: none" (change)="importWorkouts($event)" />
+
+      <!-- Export Program Button -->
       <button mat-raised-button color="accent" (click)="exportWorkouts()">
         <mat-icon>download</mat-icon>
         Export
@@ -29,7 +32,7 @@
   </header>
 
   <!-- Main content area with 30-70 split -->
-  <div class="main-content">
+  <div class="main-content" id="pdf-content">
     <!-- Breakdown of total volume per muscle group -->
     <div class="volume-summary">
       <app-volume-summary [muscleGroupToVolume]="muscleGroupToVolume"></app-volume-summary>
@@ -57,7 +60,7 @@
         </app-workout-card>
       </div>
       <div class="notes-section">
-        <textarea></textarea>
+        <textarea [(ngModel)]="programNotes" placeholder="You can add notes here"></textarea>
       </div>
     </div>
   </div>
