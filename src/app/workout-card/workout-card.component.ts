@@ -6,6 +6,7 @@ import { Exercise } from '../models/exercise.model';
 import { MuscleGroup } from '../models/muscle-group.enum';
 import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 import { MatIconModule } from '@angular/material/icon';
+import { PreserveTitlecasePipe } from '../pipes/preserve-titlecase.pipe';
 
 @Component({
   selector: 'app-workout-card',
@@ -16,7 +17,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatIconModule,
     CdkDrag,
     CdkDropList,
-    NgFor
+    NgFor,
+    PreserveTitlecasePipe
   ],
   templateUrl: './workout-card.component.html',
   styleUrl: './workout-card.component.scss',

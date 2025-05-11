@@ -28,7 +28,7 @@
             </thead>
             <tbody>
                 <tr *ngFor="let exercise of workout.exercises" class="exercise-row">
-                    <td class="exercise-name">{{ exercise.name }}</td>
+                    <td class="exercise-name">{{ exercise.name | preserveTitlecase }}</td>
                     <td class="sets">{{ exercise.sets }}</td>
                     <td class="reps">{{ exercise.repRange.min }}-{{ exercise.repRange.max }}</td>
                 </tr>
