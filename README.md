@@ -1,5 +1,11 @@
 # ProgramBuilder
 
+## About
+
+You can access the app [here](https://vedanthmohan20.github.io/program-builder/).
+
+This is an app which can be used to build a workout split, and automatically calculates the total training volume for a week.
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.9.
 
 ## Development server
