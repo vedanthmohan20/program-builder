@@ -79,7 +79,7 @@
                             </select>
                         </td>
                         <td>
-                            <input type="number" [(ngModel)]="exercise.sets" min="1">
+                            <input type="number" [(ngModel)]="exercise.sets" (ngModelChange)="updateWorkout()" min="1">
                         </td>
                         <td class="rep-range">
                             <input type="number" [(ngModel)]="exercise.repRange.min" min="1">

@@ -34,20 +34,18 @@ export class WorkoutCardComponent {
   };
 
   addExercise(): void {
-    if (this.newExercise.name && this.newExercise.muscleGroup) {
-      this.workout.exercises = this.workout.exercises || [];
-      this.workout.exercises.push({
-        name: this.newExercise.name,
-        muscleGroup: this.newExercise.muscleGroup,
-        sets: this.newExercise.sets || 3,
-        repRange: {
-          min: this.newExercise.repRange?.min || 8,
-          max: this.newExercise.repRange?.max || 12,
-        },
-      });
-      this.updateWorkout();
-      this.resetNewExercise();
-    }
+    this.workout.exercises = this.workout.exercises || [];
+    this.workout.exercises.push({
+      name: this.newExercise.name ? this.newExercise.name : '',
+      muscleGroup: this.newExercise.muscleGroup ? this.newExercise.muscleGroup : MuscleGroup.Traps,
+      sets: this.newExercise.sets || 3,
+      repRange: {
+        min: this.newExercise.repRange?.min || 6,
+        max: this.newExercise.repRange?.max || 8,
+      },
+    });
+    this.updateWorkout();
+    this.resetNewExercise();
   }
 
   onExerciseDropped(event: CdkDragDrop<Exercise[]>) {
@@ -76,7 +74,7 @@ export class WorkoutCardComponent {
     return muscleGroups
   }
 
-  private updateWorkout(): void {
+  updateWorkout(): void {
     this.workout.muscleGroups = [
       ...new Set(this.workout.exercises?.map((ex) => ex.muscleGroup) || []),
     ];
@@ -88,7 +86,7 @@ export class WorkoutCardComponent {
       name: '',
       muscleGroup: undefined,
       sets: 3,
-      repRange: { min: 8, max: 12 },
+      repRange: { min: 6, max: 8 },
     };
   }
 }
